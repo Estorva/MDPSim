@@ -26,7 +26,7 @@ class gwTP(simulator.Transition):
         self.pe = p_e # probability of error
 
     def __call__(self, s, a):
-        # translating text to coordinates
+
         def aToCoord(a):
             if a == 'up':
                 return (0, 1)
@@ -72,11 +72,11 @@ class gwR(simulator.Transition):
 '''
 
 def gwR(sn, s, a):
-    if (sn == (2, 2)):
+    if sn == (2, 2):
         return 1
-    if (sn == (2, 0)):
+    if sn == (2, 0):
         return 10
-    if (sn[0] == 4):
+    if sn[0] == 4:
         return -5
     else:
         return 0
@@ -88,7 +88,7 @@ B = [(1, 1), (2, 1), (1, 3), (2, 3)]
 S = [(i, j) for j in range(n) for i in range (m) if (i, j) not in B] # coordinates in a m-by-n rectangle
 A = ['left', 'up', 'right', 'down', 'stay']
 #A = ['↑', '↓', '←', '→', '．']
-P = gwTP(S, A, p_e = 0.0)
+P = gwTP(S, A, p_e = 0.1)
 
 # task parameters
 H = -1
@@ -101,8 +101,8 @@ R = gwR
 
 sim = simulator.Environment(S=S, A=A, P=P, O=None, R=R)
 sim.task(H=H, gamma=gamma)
-#sim.policyIteration()
-sim.valueIteration()
+sim.policyIteration()
+#sim.valueIteration()
 
 '''
 a snippet for evaluating the system from a initial state

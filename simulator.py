@@ -96,11 +96,13 @@ class Environment:
         while True:
             for s in range(self.nS):
                 V_[s] = 0.0
+                maxV = FLOAT_MIN
                 for a in range(self.nA):
-                    maxV = FLOAT_MIN
                     tempV = 0.0
                     for s_ in range(self.nS):
                         tempV += self.P(self.S[s], self.A[a])[s_] * ( self.R(self.S[s_], self.S[s], self.A[a]) + self.gamma * self.V[s_] )
+                        #if s == 1 and a == 2: print(s_, self.P(self.S[s], self.A[a])[s_], self.R(self.S[s_], self.S[s], self.A[a]))
+
                     maxV = max(maxV, tempV)
                 V_[s] = maxV
                 D = max(D, abs(V_[s] - self.V[s]))
