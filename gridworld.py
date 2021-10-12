@@ -83,7 +83,7 @@ def gwR(sn, s, a):
 
 # system parameters
 m = 5 # range of x
-n = 6 # range of y
+n = 5 # range of y
 B = [(1, 1), (2, 1), (1, 3), (2, 3)]
 S = [(i, j) for j in range(n) for i in range (m) if (i, j) not in B] # coordinates in a m-by-n rectangle
 A = ['left', 'up', 'right', 'down', 'stay']
@@ -101,8 +101,8 @@ R = gwR
 
 sim = simulator.Environment(S=S, A=A, P=P, O=None, R=R)
 sim.task(H=H, gamma=gamma)
-sim.policyIteration()
-#sim.valueIteration()
+#sim.policyIteration()
+sim.valueIteration()
 
 '''
 a snippet for evaluating the system from a initial state

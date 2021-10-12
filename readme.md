@@ -83,6 +83,16 @@ Environment.valueIteration()
 
 A method that computes value and policy based on value iteration, both of which can be accessed with ```Environment.V``` and ```Environment.pi```.
 
+# Gallery
+
+Gridworld problem solved using policy iteration:
+
+![](images/gridworld_policyIteration.jpg)
+
+Gridworld problem solved using  value iteration:
+
+![](images/gridworld_valueIteration.jpg)
+
 # Known Issues
 
 + The order of actions in the list ```A``` affects the output of either policy iteration or value iteration. This has to do with how a maximum is picked if there are multiple maxima in a list.
