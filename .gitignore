@@ -1,3 +1,5 @@
 mat*
-finitestatemachine.py
+*/finitestatemachine.py
 images/gridworld.jpg
+problem/gridworldMultiagent.py
+visualizer/gridworldMultiagent.py
