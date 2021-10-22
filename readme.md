@@ -75,26 +75,6 @@ A method that changes the current state of the environment according to the give
 Environment.initialize(s)
 ```
 
-A method that sets the initial state of the environment to the given argument ```s```.
-
-```
-Environment.task(H, gamma)
-```
-
-A method that provides the environment with information necessary for policy iteration and value iteration.
-
-```
-Environment.policyIteration()
-```
-
-A method that computes value and policy based on policy iteration, both of which can be accessed with ```Environment.V``` and ```Environment.pi```.
-
-```
-Environment.valueIteration()
-```
-
-A method that computes value and policy based on value iteration, both of which can be accessed with ```Environment.V``` and ```Environment.pi```.
-
 (In the future) There are also functions under ```common/``` that can be used at your convenience.
 
 # Gallery
