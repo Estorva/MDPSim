@@ -6,20 +6,32 @@ A Python library that solves and simulates Markov decision process.
 
 + python 3.8 or newer
 + numpy
++ matplotlib
 
 ## Running
 
-The library comes with a ready-to-run file ```gridworld.py```, which can be executed by simply typing:
+```
+python solver.py [-h] [-p P]
+                 [-m {pi,policy-iteration,vi,value-iteration,gs,graph-search}]
+                 [-v V] [--horizon HORIZON] [--gamma GAMMA]
+                 [--converge-threshold THR] [--function-approximation]
+                 problem
 
 ```
-python gridworld.py
-```
 
-Alternatively, you can write your own Python script and include the library with:
+Run the script ```solver.py``` and supply it with task name and optional arguments to solve MDP. The arguments are:
 
-```
-import simulator
-```
++ ```problem```: the identifier of a problem instance. Two Python scripts with same filename are expected to exist under directories ```problem/``` and ```visualizer/```. For example, if a problem instance is given as ```finiteStateMachine```, there must be files ```problem/finiteStateMachine.py``` and ```visualizer/finiteStateMachine.py```.
++ ```-p```: alternative problem definition that overrides that deduced from the argument ```problem```.
++ ```-v```: alternative problem visualizer that overrides that deduced from the argument
++ ```-m```: method used to solve MDP. Currently supported methods are
+ + ```pi```: policy iteration
+ + ```vi```: value iteration
+ + ```gs```: graph search
++ ```--horizon```: horizon of reward. -1 for infinite horizon.
++ ```--gamma```: discount factor of reward, should be a real number between (not including) 0 and 1.
++ ```--converge-threshold```: the extent of convergence we want for our value function. Usually 0.1 is a good start. The smaller the number is, the more computation the solver does.
++ ```--function-approximation```: enables function approximation (definition provided by user) when ```-m``` is set to ```vi```.
 
 # User-defined Problems
 
@@ -41,11 +53,11 @@ There are some mathematical concepts that can be reused in Python, and we implem
 + ```P``` must be callable, receives two arguments ```s``` and ```a```, and returns a probabilistic distribution of type ```list``` and length equal to ```len(S)```. The library provides a class ```Transition``` for inheritence.
 + ```S``` and ```A``` must be of type ```list``` but their content is not restricted as long as ```P``` handles their elements well.
 + ```R``` must be a callable object that takes three arguments ```s'```, ```s```, and ```a```, and returns a number.
-+ ```H``` and ```gamma``` are constant numbers. ```gamma``` should be in the range [0, 1).
++ ```H``` and ```gamma``` are constants. ```gamma``` should be in the range (0, 1).
 
 ## Interface
 
-The library provides the interface ```Environment``` that users can interact with. The methods available are:
+The library provides the interface ```Environment``` that users can interact with. The interface is located at ```common/simulator.py```. The methods available are:
 
 ```
 Environment(S, A, P, O, R)
@@ -83,6 +95,8 @@ Environment.valueIteration()
 
 A method that computes value and policy based on value iteration, both of which can be accessed with ```Environment.V``` and ```Environment.pi```.
 
+(In the future) There are also functions under ```common/``` that can be used at your convenience.
+
 # Gallery
 
 Gridworld problem solved using policy iteration:
@@ -92,3 +106,5 @@ Gridworld problem solved using policy iteration:
 Gridworld problem solved using value iteration:
 
 ![](images/gridworld_valueIteration.jpg)
+
+<!-- press control+shift+M for markdown preview -->

@@ -38,13 +38,7 @@ def BFS(G: list, v:int):
                 Q.put(n)
     return parent
 
-def AStar(G: list, si: int, sf: int, S: list):
-    def h(S, s1, s2):
-        # heuristic that estimates the distance btw s and sf
-        # !!! this is problem-specific !!!
-        # L1-norm
-        return abs(S[s1][0] - S[s2][0]) + abs(S[s1][1] - S[s2][1])
-
+def AStar(G: list, si: int, sf: int, h):
     C = [] # closed set
     O = [(0, si)] # open set, sorted as a heap according to F of each element
     g = [0.0 for s in G]
@@ -59,7 +53,7 @@ def AStar(G: list, si: int, sf: int, S: list):
             if n in C: continue
             elif n in O:
                 g_ = g[v] + 3 # g = G(current_node) + weight(curr, neigh)
-                f = g_ + h(S, n, sf)
+                f = g_ + h(n, sf)
                 if g[n] > g_:
                     g[n] = g_
                     parent[n] = (v, a)
@@ -72,7 +66,7 @@ def AStar(G: list, si: int, sf: int, S: list):
                             break
             else:
                 g_ = g[v] + 3
-                f = g_ + h(S, n, sf)
+                f = g_ + h(n, sf)
                 g[n] = g_
                 parent[n] = (v, a)
                 heapq.heappush(O, (f, n))
@@ -93,8 +87,8 @@ def solve(env: dict, H: int, gamma: float, thr: float):
              G[i].append((s_, j))
 
     #parent = DFS(G, si)
-    #parent = BFS(G, si)
-    parent = AStar(G, si, sf, S)
+    parent = BFS(G, si)
+    #parent = AStar(G, si, sf, env['h'])
     pi = []
     s = sf
     while s != si:

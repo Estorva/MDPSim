@@ -24,6 +24,8 @@ def aToCoord(a):
 def visualize(simPi, simV, imageOutput = "image"):
     board = [[(i+j)%2 for i in range(ck.dim[0])] for j in range(ck.dim[1])]
     for b in ck.B:
+        if b[0] >= ck.dim[0] or b[1] >= ck.dim[1]:
+            continue
         board[b[0]][b[1]] = 2
     cmap = ListedColormap([(0.91, 0.84, 0.77), (0.62, 0.5, 0.47), (0,0,0)])
     board = np.array(board).T # matshow() is i,j-indexed but text() and arror() are x,y-indexed
@@ -47,4 +49,5 @@ def visualize(simPi, simV, imageOutput = "image"):
     plt.ylim([-0.5, ck.dim[1]-0.5])
 
     plt.savefig('images/' + imageOutput + '.jpg')
-    pass
+
+    # print how many steps the knight makes
