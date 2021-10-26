@@ -7,7 +7,7 @@ Synopsis:
     A MDP model of grid-world problem.
 """
 
-import common.simulator
+import common.simulator as sim
 
 def coordPlus(p, q):
     assert isinstance(p, tuple)
@@ -15,7 +15,7 @@ def coordPlus(p, q):
     assert len(p) == len(q)
     return tuple(p[i] + q[i] for i in range(len(p)))
 
-class gwTP(simulator.Transition):
+class gwTP(sim.Transition):
     def __init__(self, S, A, p_e):
         super().__init__(S, A)
         self.pe = p_e # probability of error

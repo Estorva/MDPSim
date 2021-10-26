@@ -14,13 +14,13 @@ import argparse
 import importlib
 
 
-def main(p, m, v, H, gamma, thr):
+def main(p, m, v, o, H, gamma, thr):
     #sim = simulator.Environment.fromDict(p.env)
     #sim.policyIteration()
     #sim.valueIteration()
 
     pi, V = m.solve(p.env, H, gamma, thr)
-    v.visualize(pi, V, imageOutput=''.join(p.__name__.split('.')[1:]))
+    v.visualize(pi, V, imageOutput=o)
 
     '''
     a snippet for evaluating the system from a initial state
@@ -49,6 +49,7 @@ if __name__ == '__main__':
     parser.add_argument("-m", "--solving-method", dest="m", default="pi",
         choices=["pi", "policy-iteration", "vi", "value-iteration", "gs", "graph-search"])
     parser.add_argument("-v", "--visualizer", dest="v")
+    parser.add_argument("-o", "--image-output", dest="o")
     parser.add_argument("--horizon", type=int, default=-1)
     parser.add_argument("--gamma", type=float, default=0.7)
     parser.add_argument("--converge-threshold", dest="thr", type=float, default=0.2)
@@ -62,12 +63,13 @@ if __name__ == '__main__':
     if args.fa:
         method = "valueIterationFA"
     visualizer = args.v or args.problem
+    o = args.o or ('images/' + problem)
 
     p = importlib.import_module("problem." + problem)
     m = importlib.import_module("method." + method)
     v = importlib.import_module("visualizer." + visualizer)
 
-    main(p, m, v, args.horizon, args.gamma, args.thr)
+    main(p, m, v, o, args.horizon, args.gamma, args.thr)
 
 
 

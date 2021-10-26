@@ -53,4 +53,4 @@ def visualize(simPi, simV, imageOutput = None):
     ax.set_xlim([-0.5, gw.m-0.5])
     ax.set_ylim([-0.5, gw.n-0.5])
 
-    plt.savefig('images/' + imageOutput + '.jpg')
+    plt.savefig(imageOutput + '.jpg')

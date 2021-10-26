@@ -13,7 +13,7 @@ A Python library that solves and simulates Markov decision process.
 ```
 python solver.py [-h] [-p P]
                  [-m {pi,policy-iteration,vi,value-iteration,gs,graph-search}]
-                 [-v V] [--horizon HORIZON] [--gamma GAMMA]
+                 [-v V] [-o O] [--horizon HORIZON] [--gamma GAMMA]
                  [--converge-threshold THR] [--function-approximation]
                  problem
 
@@ -23,7 +23,8 @@ Run the script ```solver.py``` and supply it with task name and optional argumen
 
 + ```problem```: the identifier of a problem instance. Two Python scripts with same filename are expected to exist under directories ```problem/``` and ```visualizer/```. For example, if a problem instance is given as ```finiteStateMachine```, there must be files ```problem/finiteStateMachine.py``` and ```visualizer/finiteStateMachine.py```.
 + ```-p```: alternative problem definition that overrides that deduced from the argument ```problem```.
-+ ```-v```: alternative problem visualizer that overrides that deduced from the argument
++ ```-v```: alternative problem visualizer that overrides that deduced from the argument.
++ ```-o```: filename of output image. Image generate by visualizer will be under the directory ```images/```.
 + ```-m```: method used to solve MDP. Currently supported methods are
  + ```pi```: policy iteration
  + ```vi```: value iteration
@@ -54,6 +55,7 @@ There are some mathematical concepts that can be reused in Python, and we implem
 + ```S``` and ```A``` must be of type ```list``` but their content is not restricted as long as ```P``` handles their elements well.
 + ```R``` must be a callable object that takes three arguments ```s'```, ```s```, and ```a```, and returns a number.
 + ```H``` and ```gamma``` are constants. ```gamma``` should be in the range (0, 1).
++ These are packed into a dictionary ```env``` and to be accessed with the key synonymous as their value. For example, ```env['P']``` returns the transition probatility ```P```.
 
 ## Interface
 
