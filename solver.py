@@ -1,7 +1,7 @@
 """
-File: solveer.py
+File: solver.py
 Date: 10.12.2021 (created)
-      10.13.2021 (updated)
+      10.28.2021 (updated)
 Author: Shih-Che Sun
 Synopsis:
     An interface that handles simulator, problem definition, and visualizer.
@@ -15,26 +15,8 @@ import importlib
 
 
 def main(p, m, v, o, H, gamma, thr):
-    #sim = simulator.Environment.fromDict(p.env)
-    #sim.policyIteration()
-    #sim.valueIteration()
-
     pi, V = m.solve(p.env, H, gamma, thr)
-    v.visualize(pi, V, imageOutput=o)
-
-    '''
-    a snippet for evaluating the system from a initial state
-    sim.initialize((2, 4))
-    sim.step('right')
-    sim.step('down')
-    sim.step('stay')
-    sim.step('left')
-    sim.step('stay')
-    sim.step('down')
-    sim.step('left')
-    print(sim.state)
-    '''
-
+    v.visualize(pi, V, p.env, H, gamma, thr, imageOutput=o)
 
 
 if __name__ == '__main__':
@@ -47,7 +29,7 @@ if __name__ == '__main__':
     parser.add_argument("problem")
     parser.add_argument("-p", "--problem-def", dest="p")
     parser.add_argument("-m", "--solving-method", dest="m", default="pi",
-        choices=["pi", "policy-iteration", "vi", "value-iteration", "gs", "graph-search"])
+        choices=["pi", "policy-iteration", "vi", "value-iteration", "gs", "graph-search", "LQR"])
     parser.add_argument("-v", "--visualizer", dest="v")
     parser.add_argument("-o", "--image-output", dest="o")
     parser.add_argument("--horizon", type=int, default=-1)
@@ -59,11 +41,13 @@ if __name__ == '__main__':
     problem = args.p or args.problem
     method = ((args.m == "pi" or args.m == "policy-iteration") and "policyIteration") or \
         ((args.m == "vi" or args.m == "value-iteration") and "valueIteration") or \
-        ((args.m == "gs" or args.m == "graph-search") and "graphSearch")
+        ((args.m == "gs" or args.m == "graph-search") and "graphSearch") or \
+        ((args.m == "LQR") and "LQR")
     if args.fa:
         method = "valueIterationFA"
     visualizer = args.v or args.problem
-    o = args.o or ('images/' + problem)
+    o = args.o or problem
+    o = 'images/' + o
 
     p = importlib.import_module("problem." + problem)
     m = importlib.import_module("method." + method)

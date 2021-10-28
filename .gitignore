@@ -4,3 +4,4 @@ images/gridworld.jpg
 problem/gridworldMultiagent.py
 visualizer/gridworldMultiagent.py
 */__pycache__
+*/test*

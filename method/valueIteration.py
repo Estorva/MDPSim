@@ -51,8 +51,8 @@ def solve(env: dict, H: int, gamma: float, thr: float = 0.2):
     eps = 0.1
     pi = []
     for s in range(nS):
-        V_ = func.bellmanBackup(env, gamma, V, s)
-        a_max = V_.argmax()
+        Q = func.Q(env, gamma, V, s)
+        a_max = Q.argmax()
         pi.append([1-eps if a == a_max else eps/(nA - 1) for a in range(nA)])
 
-    return (pi, V)
+    return (np.array(pi), V)

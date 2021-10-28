@@ -86,8 +86,6 @@ A = ['left', 'up', 'right', 'down', 'stay']
 P = gwTP(S, A, p_e = 0.1)
 
 # task parameters
-H = -1
-gamma = 0.8
 R = gwR
 
 # bundle
@@ -97,8 +95,6 @@ env = {
     'P': P,
     'O': None,
     'R': R,
-    'H': H,
-    'gamma': gamma,
     'dim': (m, n),
     'B': B
 }
